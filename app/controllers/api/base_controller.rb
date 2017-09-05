@@ -12,7 +12,7 @@ class Api::BaseController < ActionController::API
   private
 
   def authenticate_user_from_token
-    payload = JsonWebToken.decode(get_token_from_header)
+    payload = JwtProvider.decode(get_token_from_header)
     return unauthorized_response unless payload
 
     @current_user = User.find_by(id: payload['user_id'])

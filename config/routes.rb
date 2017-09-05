@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-  namespace :api do
-    get 'auth/login'
-  end
-
-  namespace :api do
-    get 'auth/logout'
-  end
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :users, only: %i(create)
+  namespace :api do
+    post 'auth/login'
+    delete 'auth/logout'
+
+    resources :users, only: %i(create)
+  end
+
+  match '*path', to: 'api/base#no_route', via: :all
 end

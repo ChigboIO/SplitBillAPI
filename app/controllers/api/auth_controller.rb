@@ -4,12 +4,12 @@ class Api::AuthController < Api::BaseController
   def login
     user = User.find_by(email: auth_params[:email])
     if user && user.authenticate(auth_params[:password])
-      token = JsonWebToken.encode('user_id': user.id)
+      token = JwtProvider.encode('user_id': user.id)
       user.tokens.create(value: token)
-      render json: { notice: 'Login successful', token: token }, status: 201
-    else
-      render json: { error: 'Incorrect username or password' }, status: 400
+      render json: { notice: 'Login successful', token: token }, status: 201 and return
     end
+
+    render json: { error: 'Incorrect username or password' }, status: 400
   end
 
   def logout

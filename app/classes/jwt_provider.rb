@@ -1,7 +1,7 @@
 class JwtProvider
-  def self.encode(payload, expiration = 1.hour.from_now)
+  def self.encode(payload, expiration = 3.days.from_now.to_i)
     payload = payload.dup
-    payload[:exp] = expiration.to_i
+    payload[:exp] = expiration
     JWT.encode(payload, Rails.application.secrets.secret_key_base)
   end
 
