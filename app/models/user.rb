@@ -10,4 +10,8 @@ class User < ApplicationRecord
   validates :email, format: {
     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/
   }
+
+  def deptors
+    bills.map(&:splitters).uniq
+  end
 end
