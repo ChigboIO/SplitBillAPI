@@ -368,8 +368,8 @@ Style/SafeNavigation:
 Style/SymbolArray:
   Enabled: true
 
-Style/MultipleComparison:
-  Enabled: false
+# Style/MultipleComparison:
+  # Enabled: false
 
-Lint/AmbiguousBlockAssociation:
-  Enabled: false
+# Lint/AmbiguousBlockAssociation:
+  # Enabled: false
