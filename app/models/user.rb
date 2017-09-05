@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :tokens
+  has_many :bills
 
   validates :email, :username, :name, presence: true
   validates :email, :username, uniqueness: true
