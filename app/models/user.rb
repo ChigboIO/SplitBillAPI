@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :tokens
   has_many :bills
+  has_many :splits
 
   validates :email, :username, :name, presence: true
   validates :email, :username, uniqueness: true

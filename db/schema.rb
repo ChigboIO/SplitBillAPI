@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170905111134) do
+ActiveRecord::Schema.define(version: 20170905112134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 20170905111134) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_bills_on_creator_id"
+  end
+
+  create_table "splits", force: :cascade do |t|
+    t.bigint "payer_id"
+    t.bigint "bill_id"
+    t.integer "amount"
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bill_id"], name: "index_splits_on_bill_id"
+    t.index ["payer_id"], name: "index_splits_on_payer_id"
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -45,5 +56,7 @@ ActiveRecord::Schema.define(version: 20170905111134) do
   end
 
   add_foreign_key "bills", "users", column: "creator_id"
+  add_foreign_key "splits", "bills"
+  add_foreign_key "splits", "users", column: "payer_id"
   add_foreign_key "tokens", "users"
 end
