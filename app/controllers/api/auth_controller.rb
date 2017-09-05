@@ -20,6 +20,6 @@ class Api::AuthController < Api::BaseController
   private
 
   def auth_params
-    params.permit(:email, :password)
+    params.permit(:email, :username, :password)
   end
 end
