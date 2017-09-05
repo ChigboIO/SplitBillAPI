@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170905112134) do
     t.string "title"
     t.text "description"
     t.datetime "date"
+    t.text "splitters"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_bills_on_creator_id"
