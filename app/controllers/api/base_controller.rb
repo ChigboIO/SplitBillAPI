@@ -6,7 +6,8 @@ class Api::BaseController < ActionController::API
   helper_method :current_user
 
   def no_route
-    render json: { error: 'Path not found', path: params[:path] }, status: 404
+    verb = request.method
+    render json: { error: 'Path not found', path: "/#{params[:path]}", verb: verb }, status: 404
   end
 
   private
