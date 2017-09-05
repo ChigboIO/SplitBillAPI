@@ -2,8 +2,8 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :tokens
-  has_many :bills
-  has_many :splits
+  has_many :bills, foreign_key: :creator_id
+  has_many :splits, foreign_key: :payer_id
 
   validates :email, :username, :name, presence: true
   validates :email, :username, uniqueness: true
