@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe Token, type: :model do
   subject { build(:token) }
 
   describe 'Model from Factory' do

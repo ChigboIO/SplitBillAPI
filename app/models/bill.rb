@@ -1,6 +1,6 @@
 class Bill < ApplicationRecord
-  after_save :split_bill
   before_save :sanitize_splitters
+  after_save :split_bill
 
   belongs_to :creator, class_name: 'User'
   has_many :splits, dependent: :destroy
