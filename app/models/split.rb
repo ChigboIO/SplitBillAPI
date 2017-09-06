@@ -4,6 +4,8 @@ class Split < ApplicationRecord
 
   delegate :date, to: :bill, allow_nil: true
 
+  validates :amount, :bill, :payer, presence: true
+
   def payee
     bill.creator
   end

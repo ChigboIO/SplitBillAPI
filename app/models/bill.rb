@@ -1,21 +1,37 @@
 class Bill < ApplicationRecord
-  after_create :split_bill
+  after_save :split_bill
+  before_save :sanitize_splitters
 
   belongs_to :creator, class_name: 'User'
-  has_many :splits
+  has_many :splits, dependent: :destroy
 
-  serialize :splitters, Array
+  validates :amount, :title, :creator, presence: true
 
-  def splitters
-    splits.map(&:user)
+  def bill_payers
+    splits.map(&:payer)
+  end
+
+  private
+
+  def sanitize_splitters
+    splitters.reject! { |s| User.find_by(username: s).nil? }
+    splitters << creator.username
+    splitters.uniq!
   end
 
   def split_bill
     # This splitting can be abstracted to a service. Or even a background job
     splitters_count = splitters.count
     splitters.each do |splitter|
-      user = User.find_by(username: splitter)
-      splits.create(payer: user, amount: (amount / splitters_count).ceil)
+      create_or_update_split_for(splitter, splitters_count)
     end
+  end
+
+  def create_or_update_split_for(splitter, splitters_count)
+    user = User.find_by(username: splitter)
+    split = splits.find_or_initialize_by(payer: user)
+    split.amount = (amount.to_f / splitters_count).ceil
+    split.paid = true if user == creator
+    split.save
   end
 end
