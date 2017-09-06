@@ -4,12 +4,9 @@ class Bill < ApplicationRecord
 
   belongs_to :creator, class_name: 'User'
   has_many :splits, dependent: :destroy
+  has_many :payers, through: :splits
 
   validates :amount, :title, :creator, presence: true
-
-  def bill_payers
-    splits.map(&:payer)
-  end
 
   private
 
