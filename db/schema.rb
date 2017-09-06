@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20170905112134) do
     t.string "title"
     t.text "description"
     t.datetime "date"
-    t.text "splitters"
+    t.jsonb "splitters"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_bills_on_creator_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170905112134) do
     t.bigint "bill_id"
     t.integer "amount"
     t.string "comment"
+    t.boolean "paid", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bill_id"], name: "index_splits_on_bill_id"

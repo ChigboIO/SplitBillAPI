@@ -6,7 +6,7 @@ class CreateBills < ActiveRecord::Migration[5.1]
       t.string :title
       t.text :description
       t.timestamp :date
-      t.text :splitters
+      t.jsonb :splitters
 
       t.timestamps
     end
