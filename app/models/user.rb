@@ -14,4 +14,8 @@ class User < ApplicationRecord
   def deptors
     bills.map(&:splitters).uniq
   end
+
+  def bills_including_split
+    Bill.where(creator: self).or(Bill.where('id IN (?)', splits.pluck(:bill_id)))
+  end
 end
