@@ -10,6 +10,10 @@ class Api::BaseController < ActionController::API
     render json: { error: 'Path not found', path: "/#{params[:path]}", verb: verb }, status: 404
   end
 
+  def render_with_not_found(resource)
+    render json: { error: "#{resource} with given ID not found" }, status: 404
+  end
+
   private
 
   def authenticate_user_from_token
