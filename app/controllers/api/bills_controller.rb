@@ -43,7 +43,7 @@ class Api::BillsController < Api::BaseController
   end
 
   def parse_date
-    bill_params[:date] = DateTime.parse(bill_params[:date])
+    bill_params[:date] = DateTime.parse(bill_params[:date].to_s)
   rescue ArgumentError
     nil
   end
