@@ -54,6 +54,7 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'json_matchers'
   gem 'rspec-rails'
   gem 'shoulda-callback-matchers'
   gem 'shoulda-matchers'
