@@ -20,6 +20,12 @@ RSpec.describe 'List bill request', type: :request do
 
         expect(parsed_body.count).to eql 2
       end
+
+      it 'returns json response that match "bills" schema' do
+        get api_bills_path, params: {}, headers: { HTTP_AUTHORIZATION: token }
+
+        expect(response).to match_response_schema('bills')
+      end
     end
 
     context 'when you creats 2 bills and is tagged in 2' do
@@ -32,6 +38,12 @@ RSpec.describe 'List bill request', type: :request do
         get api_bills_path, params: {}, headers: { HTTP_AUTHORIZATION: token }
 
         expect(parsed_body.count).to eql 4
+      end
+
+      it 'returns json response that match "bills" schema' do
+        get api_bills_path, params: {}, headers: { HTTP_AUTHORIZATION: token }
+
+        expect(response).to match_response_schema('bills')
       end
     end
   end

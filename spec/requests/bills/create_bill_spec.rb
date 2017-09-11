@@ -33,6 +33,12 @@ RSpec.describe 'Create bill request', type: :request do
           post api_bills_path, params: bill_params, headers: { HTTP_AUTHORIZATION: token }
         end.to change(Split, :count).by(bill_params[:splitters].count + 1)
       end
+
+      it 'returns json response that match "bill" schema' do
+        post api_bills_path, params: bill_params, headers: { HTTP_AUTHORIZATION: token }
+
+        expect(response).to match_response_schema('bill')
+      end
     end
 
     context 'when the bill amount is not provided' do

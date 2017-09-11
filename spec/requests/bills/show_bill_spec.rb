@@ -34,6 +34,12 @@ RSpec.describe 'Show single bill request', type: :request do
 
         expect(response.body).to include @bill.title
       end
+
+      it 'returns a response that match the bill schema' do
+        get api_bill_path(@bill.id), params: {}, headers: { HTTP_AUTHORIZATION: token }
+
+        expect(response).to match_response_schema('bill')
+      end
     end
   end
 end
