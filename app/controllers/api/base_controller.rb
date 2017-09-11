@@ -14,6 +14,10 @@ class Api::BaseController < ActionController::API
     render json: { error: "#{resource} with given ID not found" }, status: 404
   end
 
+  def render_with_unauthorized(resource)
+    render json: { error: "Unauthorized action on this #{resource}" }, status: 401
+  end
+
   private
 
   def authenticate_user_from_token

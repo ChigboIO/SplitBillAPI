@@ -1,5 +1,6 @@
 class Api::BillsController < Api::BaseController
-  before_action :set_bill, only: %i(update destroy)
+  before_action :set_bill, only: %i(show update destroy)
+  before_action :confirm_bill_ownership, only: %i(update destroy)
   before_action :parse_date, only: %i(create update)
 
   def index
@@ -7,7 +8,6 @@ class Api::BillsController < Api::BaseController
   end
 
   def create
-    # debugger
     @bill = current_user.bills.build(bill_params)
     render json: @bill, status: 201 and return if @bill.save
 
@@ -15,9 +15,6 @@ class Api::BillsController < Api::BaseController
   end
 
   def show
-    @bill = current_user.bills_including_split.find_by(id: params[:id])
-    render_with_not_found('Bill') and return unless @bill
-
     render json: @bill, status: 200
   end
 
@@ -34,8 +31,13 @@ class Api::BillsController < Api::BaseController
   private
 
   def set_bill
-    @bill = current_user.bills.find_by(id: params[:id])
+    @bill = current_user.bills_including_split.find_by(id: params[:id])
     render_with_not_found('Bill') unless @bill
+  end
+
+  def confirm_bill_ownership
+    return if @bill && @bill.creator == current_user
+    render_with_unauthorized('bill')
   end
 
   def bill_params
