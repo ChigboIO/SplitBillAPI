@@ -1,0 +1,20 @@
+{
+    "type": "object",
+    "required": ["id", "title", "amount"],
+    "properties": {
+        "id": { "type": "integer" },
+        "creator_id": { "type": "integer" },
+        "amount": { "type": "integer" },
+        "title": { "type": "string" },
+        "description": { "type": ["string", "null"] },
+        "date": { "type": ["string", "null"] },
+        "splitters": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
+    }
+}
