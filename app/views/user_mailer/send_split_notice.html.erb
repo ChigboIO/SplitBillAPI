@@ -1,0 +1,8 @@
+<h1>Hello <%= @payer.name %></h1>
+
+<h4>Bill: <%= @bill.title %></h4>
+<h4>Creator: <%= @split.payee.name %></h4>
+<p>
+  This is to let you know that a bill with title <%= @bill.title %> is
+  created by <%= @split.payee.name %> and your share of the bill is <%= @split.amount %>
+</p>
