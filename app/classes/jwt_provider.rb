@@ -7,7 +7,5 @@ class JwtProvider
 
   def self.decode(token)
     JWT.decode(token, Rails.application.secrets.secret_key_base, true).first
-  rescue
-    nil
   end
 end

@@ -211,7 +211,7 @@ NegatedIf:
 NestedTernaryOperator:
   Enabled: true
 
-OpMethod:
+Naming/BinaryOperatorParameterName:
   Enabled: false
 
 ParameterLists:
@@ -281,7 +281,10 @@ StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: single_quotes
 
-TrailingCommaInLiteral:
+TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: no_comma
+
+TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: no_comma
 
 TrivialAccessors:
@@ -334,12 +337,6 @@ ElseLayout:
 HandleExceptions:
   Enabled: false
 
-InvalidCharacterLiteral:
-  Enabled: false
-
-LiteralInCondition:
-  Enabled: false
-
 LiteralInInterpolation:
   Enabled: false
 
@@ -368,8 +365,5 @@ Style/SafeNavigation:
 Style/SymbolArray:
   Enabled: true
 
-# Style/MultipleComparison:
-  # Enabled: false
-
-# Lint/AmbiguousBlockAssociation:
-  # Enabled: false
+Style/DateTime:
+  Enabled: false

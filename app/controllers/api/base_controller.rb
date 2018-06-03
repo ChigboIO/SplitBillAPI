@@ -22,9 +22,12 @@ class Api::BaseController < ActionController::API
 
   def authenticate_user_from_token
     payload = JwtProvider.decode(get_token_from_header)
-    return unauthorized_response unless payload
-
-    @current_user = User.find_by(id: payload['user_id'])
+    @current_user = User.find_by(id: payload['user_id']) if payload
+    unauthorized_response unless @current_user.present?
+  rescue JWT::ExpiredSignature
+    unauthorized_response('Auth token has expired')
+  rescue JWT::DecodeError
+    unauthorized_response('Invalid auth token')
   end
 
   def get_token_from_header
@@ -35,7 +38,7 @@ class Api::BaseController < ActionController::API
     return @token if Token.find_by(value: @token)
   end
 
-  def unauthorized_response
-    render json: { error: 'Unauthorized access' }, status: 401
+  def unauthorized_response(message = '')
+    render json: { error: "Unauthorized access. #{message}" }, status: 401
   end
 end
